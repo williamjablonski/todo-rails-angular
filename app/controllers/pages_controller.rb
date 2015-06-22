@@ -4,4 +4,8 @@ class PagesController < ApplicationController
     
   end
 
+  def user_stories
+  	
+  end
+
 end

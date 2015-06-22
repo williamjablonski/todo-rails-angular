@@ -24,3 +24,7 @@ tr.success td.task_body{
 .grey-jumbotron {
   background-color: #B9B9B9 !important;
 }
+
+.candidate-buttons {
+  margin-top: 5px;
+}
