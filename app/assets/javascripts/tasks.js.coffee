@@ -65,7 +65,7 @@ app.factory "SubTask", ["$resource" , ($resource) ->
   orderBy = $filter('orderBy');
   
   $scope.task = task
-  $scope.subTask = new SubTask({task_id: $scope.task.id, completed: false});
+  $scope.subTask = new SubTask({task_id: $scope.task.id, completed: false, due_date: new Date()});
 
   $scope.close = ->    
     $modalInstance.dismiss('cancel')
@@ -87,7 +87,7 @@ app.factory "SubTask", ["$resource" , ($resource) ->
       $scope.task.sub_tasks = []
     $scope.task.sub_tasks.push($scope.subTask)
     $scope.task.sub_tasks = orderBy($scope.task.sub_tasks, 'sort_order', true)
-    $scope.subTask = new SubTask({task_id: $scope.task.id, completed: false})
+    $scope.subTask = new SubTask({task_id: $scope.task.id, completed: false, due_date: new Date()})
 
   $scope.checkBody = (data) ->
     if data.length < 1 || data.length > 254

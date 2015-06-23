@@ -4,9 +4,11 @@
   %h4 Todo:
   %form{:name => "sub_task_form"}
     %textarea#edit_task.form-control{:name => "edit_task", "ng-model" => "task.body", :required => "required", :type => "textarea", "maxlength" => "254"}
-  %h4 Add a SubTask:
+  %h4 SubTask Description:
   %form{:name => "sub_task_form", "ng-submit" => "saveSubTask()"}
     %input#new_sub_task.form-control{:name => "new_subtask", "ng-model" => "subTask.body", :placeholder => "Type a new SubTask here and press enter", :required => "required", :type => "text", "maxlength" => "254"}
+    %h4 Due Date:
+    %input{name: "due_date", "ng-model" => "subTask.due_date", required: "required", type: "date", "min" => "2000-01-01", "max" => "2099-12-31"}
   %div{'ng-show' => 'task.sub_tasks.length'}
     %h4 SubTasks of this ToDo:
     %table.table

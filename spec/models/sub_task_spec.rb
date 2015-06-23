@@ -5,8 +5,7 @@ RSpec.describe SubTask, :type => :model do
   
   context "Validations" do 
 
-    [:body, :task_id].each do |attribute|
-
+    [:body, :task_id, :due_date].each do |attribute|
       it "should not be valid without #{attribute}" do 
         subject.send("#{attribute}=", '')
         expect(subject).not_to be_valid
@@ -43,6 +42,4 @@ RSpec.describe SubTask, :type => :model do
     other_sub_task = FactoryGirl.create(:sub_task, task: task)
     expect(task.sub_tasks.first.id).to be_equal(other_sub_task.id)
   end
-
-
 end

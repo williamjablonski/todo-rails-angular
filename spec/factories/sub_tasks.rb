@@ -3,6 +3,7 @@
 FactoryGirl.define do
   factory :sub_task do
     body "My todo body"
+    due_date Date.new
     task
   end
 end

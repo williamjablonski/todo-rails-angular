@@ -1,7 +1,7 @@
 class SubTask < ActiveRecord::Base
   default_scope { order('sort_order DESC') }
   
-  validates_presence_of :body, :task_id
+  validates_presence_of :body, :task_id, :due_date
 
   belongs_to :task, counter_cache: true, touch: true
 
