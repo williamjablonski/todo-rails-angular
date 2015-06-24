@@ -10,7 +10,7 @@ app.factory "Task", ["$resource" , ($resource) ->
 ]
 
 app.factory "SubTask", ["$resource" , ($resource) ->
-  $resource("/tasks/:task_id/sub_tasks/:id.json", {id: "@id", task_id: "@task_id"}, {update: {method: "PUT"}, query:  {method: 'GET', isArray: true}})
+  $resource("/tasks/:task_id/sub_tasks/:id.json", {id: "@id", task_id: "@task_id", due_date: "@due_date"}, {update: {method: "PUT"}, query:  {method: 'GET', isArray: true}})
 
 ]
 
