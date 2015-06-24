@@ -10,6 +10,7 @@ class SubTasksController < ApplicationController
 
     task = current_user.tasks.find(params[:sub_task][:task_id])
     if task.present?
+      sub_task_params[:due_date] = Date.new(sub_task_params[:due_date])
       sub_task = task.sub_tasks.create(sub_task_params)
       respond_with sub_task, location: [task, sub_task]
     end
