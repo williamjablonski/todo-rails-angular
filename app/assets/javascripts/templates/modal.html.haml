@@ -4,11 +4,24 @@
   %h4 Todo:
   %form{:name => "sub_task_form"}
     %textarea#edit_task.form-control{:name => "edit_task", "ng-model" => "task.body", :required => "required", :type => "textarea", "maxlength" => "254"}
-  %h4 SubTask Description:
-  %form{:name => "sub_task_form", "ng-submit" => "saveSubTask()"}
-    %input#new_sub_task.form-control{:name => "new_subtask", "ng-model" => "subTask.body", :placeholder => "Type a new SubTask here and press enter", :required => "required", :type => "text", "maxlength" => "254"}
-    %h4 Due Date:
-    %input{name: "due_date", "ng-model" => "subTask.due_date", required: "required", type: "date", "min" => "2000-01-01", "max" => "2099-12-31"}
+  .panel.panel-default
+    .panel-heading Create a SubTask
+    .panel-body
+      %form{:name => "sub_task_form"}
+        .form-group
+          %label{:for => "new_sub_task"} SubTask Description:
+          %input#new_sub_task.form-control{:name => "new_subtask", "ng-model" => "subTask.body", :placeholder => "Type a new SubTask here and press enter", :type => "text", "maxlength" => "254"}
+        .form-group  
+          %p.input-group
+            %label{:for => "dueDate"} Due Date:
+            {{subTask.due_date}}
+            %input#dueDate.form-control{name: "due_date", "ng-model" => "subTask.due_date", type: "text", placeholder: "MM/dd/yyyy"}
+        .form-group
+          %button.btn.btn-primary#add-subtask{href: "#", "ng-click" => "saveSubTask()"} 
+            %span.glyphicon.glyphicon-plus
+            Add
+
+
   %div{'ng-show' => 'task.sub_tasks.length'}
     %h4 SubTasks of this ToDo:
     %table.table

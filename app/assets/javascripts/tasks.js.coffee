@@ -10,7 +10,7 @@ app.factory "Task", ["$resource" , ($resource) ->
 ]
 
 app.factory "SubTask", ["$resource" , ($resource) ->
-  $resource("/tasks/:task_id/sub_tasks/:id.json", {id: "@id", task_id: "@task_id", due_date: "@due_date"}, {update: {method: "PUT"}, query:  {method: 'GET', isArray: true}})
+  $resource("/tasks/:task_id/sub_tasks/:id.json", {id: "@id", task_id: "@task_id"}, {update: {method: "PUT"}, query:  {method: 'GET', isArray: true}})
 
 ]
 
@@ -64,8 +64,12 @@ app.factory "SubTask", ["$resource" , ($resource) ->
 @ModalInstanceCtrl = ["$scope", "$filter", "Task", "$modal" , 'task', '$modalInstance', "SubTask",  ($scope, $filter, Task, $modal, task, $modalInstance, SubTask) ->
   orderBy = $filter('orderBy');
   
+  $scope.today = ->
+    date = new Date()
+    return date.getDay() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
+
   $scope.task = task
-  $scope.subTask = new SubTask({task_id: $scope.task.id, completed: false, due_date: new Date()});
+  $scope.subTask = new SubTask({task_id: $scope.task.id, completed: false, due_date: $scope.today() });
 
   $scope.close = ->    
     $modalInstance.dismiss('cancel')
@@ -87,7 +91,7 @@ app.factory "SubTask", ["$resource" , ($resource) ->
       $scope.task.sub_tasks = []
     $scope.task.sub_tasks.push($scope.subTask)
     $scope.task.sub_tasks = orderBy($scope.task.sub_tasks, 'sort_order', true)
-    $scope.subTask = new SubTask({task_id: $scope.task.id, completed: false, due_date: new Date()})
+    $scope.subTask = new SubTask({task_id: $scope.task.id, completed: false, due_date: $scope.today()})
 
   $scope.checkBody = (data) ->
     if data.length < 1 || data.length > 254
@@ -96,5 +100,4 @@ app.factory "SubTask", ["$resource" , ($resource) ->
   $scope.updateSubTask = (subTask) ->
     subTask = new SubTask(subTask)
     subTask.$update()
-    
 ]

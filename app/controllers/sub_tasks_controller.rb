@@ -7,11 +7,13 @@ class SubTasksController < ApplicationController
   respond_to :json
 
   def create
-    p sub_task_params[:due_date]
-    sub_task_params[:due_date] = Date.parse(sub_task_params[:due_date])
-    task = current_user.tasks.find(sub_task_params[:task_id])
+    params = sub_task_params
+    params[:due_date] = Date.parse(params[:due_date])
+    p params[:due_date]
+    p params
+    task = current_user.tasks.find(params[:task_id])
     if task.present?
-      sub_task = task.sub_tasks.create(sub_task_params)
+      sub_task = task.sub_tasks.create(params)
       respond_with sub_task, location: [task, sub_task]
     end
   end

@@ -27,7 +27,9 @@ RSpec.describe SubTasksController, :type => :controller do
     login_user_before_each
     let(:valid_attributes) {
       @task = FactoryGirl.create(:task, user_id: @current_user.id)
-      FactoryGirl.build(:sub_task, task: @task).attributes
+      record = FactoryGirl.build(:sub_task, task: @task).attributes
+      record[:due_date] = "01/01/2015"
+      record
     }
 
     describe "#create" do 

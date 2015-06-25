@@ -25,8 +25,8 @@ RSpec.describe "Tasks Index", :type => :feature, :js => true do
     create_a_task
     click_button "(0) Manage Subtasks"
     fill_in 'new_sub_task', with: body
-    fill_in 'due_date', with: "2015-01-12"
-    find('#new_sub_task').native.send_keys(:return)
+    fill_in 'due_date', with: "01/01/2015"
+    click_button "Add"
   end
 
   it "create a task successfully" do
