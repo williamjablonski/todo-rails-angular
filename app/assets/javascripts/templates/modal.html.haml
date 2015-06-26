@@ -14,7 +14,6 @@
         .form-group  
           %p.input-group
             %label{:for => "dueDate"} Due Date:
-            {{subTask.due_date}}
             %input#dueDate.form-control{name: "due_date", "ng-model" => "subTask.due_date", type: "text", placeholder: "MM/dd/yyyy"}
         .form-group
           %button.btn.btn-primary#add-subtask{href: "#", "ng-click" => "saveSubTask()"} 
