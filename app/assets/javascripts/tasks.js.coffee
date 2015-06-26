@@ -14,54 +14,7 @@ app.factory "SubTask", ["$resource" , ($resource) ->
 
 ]
 
-@TaskCtrl = ["$scope", "$filter", "Task", "$modal" ,  ($scope, $filter, Task, $modal) ->
-  $scope.tasks = Task.query()
-  orderBy = $filter('orderBy')
-
-  $scope.addTask = ->
-    task = Task.save($scope.newTask)
-    $scope.tasks.push(task)
-    $scope.tasks = orderBy($scope.tasks, 'sort_order', true)
-    $scope.newTask = {}
-    
-  $scope.toggleCompleted = (task) ->    
-    task.completed = ! task.completed
-    task.$update()
-
-  $scope.togglePublic = (task) ->    
-    task.public = ! task.public
-    task.$update()
-
-  $scope.removeTask = (task) ->    
-    task.$delete()
-    $scope.tasks.splice( $scope.tasks.indexOf(task), 1 )
-
-    
-  $scope.checkBody = (data) ->
-    if data.length < 1 || data.length > 254
-      "Task can't be blank!"
-
-  $scope.saveTask = (task) ->
-    task.$update()
-    
-    
-
-  $scope.editModal = (task) ->
-    modalInstance = $modal.open(
-      templateUrl: 'modal.html',
-      controller: ModalInstanceCtrl,
-      resolve:
-        task: ->
-          task      
-    )
-    modalInstance.result.then ((task) ->
-    ), ->
-      task.$update()
-      
-
-]
-
-@ModalInstanceCtrl = ["$scope", "$filter", "Task", "$modal" , 'task', '$modalInstance', "SubTask",  ($scope, $filter, Task, $modal, task, $modalInstance, SubTask) ->
+app.controller('ModalInstanceCtrl',["$scope", "$filter", "Task", "$modal" , 'task', '$modalInstance', "SubTask",  ($scope, $filter, Task, $modal, task, $modalInstance, SubTask) ->
   orderBy = $filter('orderBy');
   
   $scope.today = ->
@@ -100,4 +53,42 @@ app.factory "SubTask", ["$resource" , ($resource) ->
   $scope.updateSubTask = (subTask) ->
     subTask = new SubTask(subTask)
     subTask.$update()
-]
+])
+
+app.controller('TaskCtrl',["$scope", "$filter", "Task", "$modal" ,  ($scope, $filter, Task, $modal) ->
+  $scope.tasks = Task.query()
+  orderBy = $filter('orderBy')
+
+  $scope.addTask = ->
+    task = Task.save($scope.newTask)
+    $scope.tasks.push(task)
+    $scope.tasks = orderBy($scope.tasks, 'sort_order', true)
+    $scope.newTask = {}
+    
+  $scope.removeTask = (task) ->    
+    task.$delete()
+    $scope.tasks.splice( $scope.tasks.indexOf(task), 1 )
+    
+  $scope.checkBody = (data) ->
+    if data.length < 1 || data.length > 254
+      "Task can't be blank!"
+
+  $scope.saveTask = (task) ->
+    task.$update()
+    
+    
+
+  $scope.editModal = (task) ->
+    modalInstance = $modal.open(
+      templateUrl: 'modal.html',
+      controller: 'ModalInstanceCtrl',
+      resolve:
+        task: ->
+          task      
+    )
+    modalInstance.result.then ((task) ->
+    ), ->
+      task.$update()
+      
+
+])

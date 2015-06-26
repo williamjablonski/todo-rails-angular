@@ -23,11 +23,11 @@
           %tr{'ng-repeat' => 'task in tasks', 'ng-class' => "{'success': task.completed}"}
 
             %td.col-md-1
-              %input{type: 'checkbox',  'ng-model' => 'task.completed', 'ng-click'=> 'toggleCompleted(task)' }
+              %input{type: 'checkbox',  'ng-model' => 'task.completed', 'ng-click' => "saveTask(task)" }
             %td.task_body.col-md-7
               %a{"editable-text" => "task.body", :href => "#", onbeforesave: "checkBody($data)", onaftersave: "saveTask(task)"} {{ task.body || "empty" }}
             %td
-              %input{type: 'checkbox',  'ng-model' => 'task.public', 'ng-click'=> 'togglePublic(task)' }
+              %input{type: 'checkbox',  'ng-model' => 'task.public', 'ng-click' => "saveTask(task)" }
             %td 
               %button.btn.btn-xs.btn-primary{ 'ng-click'=> 'editModal(task)' } ({{task.sub_tasks.length || 0}}) Manage Subtasks
             %td
