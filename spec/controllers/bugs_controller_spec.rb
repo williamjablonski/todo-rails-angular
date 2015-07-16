@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe BugController, :type => :controller do
+RSpec.describe BugsController, :type => :controller do
 	render_views
 
 	context "when logged out" do 

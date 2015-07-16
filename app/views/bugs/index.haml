@@ -1,0 +1,20 @@
+%h1
+  Bugs I have found so far
+.task_container{'ng-controller' => 'BugController'}
+  .bs-example
+    .panel.panel-default
+      / Default panel contents
+      .panel-heading Bugs
+      / Table
+      %table.table
+        %thead
+          %tr
+            %th Id
+            %th Summary
+        %tbody
+          %tr.bug-row{'ng-repeat' => 'bug in bugs', 'ng-class' => "{'success': task.completed}"}
+
+            %td.col-md-1
+              %a {{bug.id}}
+            %td.task_body.col-md-7
+              %a {{bug.summary}}

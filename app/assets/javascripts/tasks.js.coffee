@@ -14,6 +14,11 @@ app.factory "SubTask", ["$resource" , ($resource) ->
 
 ]
 
+app.factory "Bug", ["$resource", ($resource) ->
+  $resource("/bugs/:id.json", {id: @id}, {update: {method: "PUT"}, query: {method: 'GET', isArray: true}})
+
+]
+
 app.controller('ModalInstanceCtrl',["$scope", "$filter", "Task", "$modal" , 'task', '$modalInstance', "SubTask",  ($scope, $filter, Task, $modal, task, $modalInstance, SubTask) ->
   orderBy = $filter('orderBy');
   
@@ -91,4 +96,9 @@ app.controller('TaskCtrl',["$scope", "$filter", "Task", "$modal" ,  ($scope, $fi
       task.$update()
       
 
+])
+
+app.controller('BugController',["$scope", "$filter", "Bug", "$modal" ,  ($scope, $filter, Bug, $modal) ->
+  $scope.bugs = Bug.query()
+  orderBy = $filter('orderBy')
 ])
