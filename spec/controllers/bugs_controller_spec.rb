@@ -27,5 +27,15 @@ RSpec.describe BugsController, :type => :controller do
       	 user_ids = json.each.collect { |json| json["user_id"] }
          expect(user_ids).to all(eq(@current_user.id))
       end
+
+
+    describe "#create" do 
+       let(:valid_attributes){ FactoryGirl.build(:bug).attributes }
+       it "should create a new task for the current user" do 
+        expect {
+          xhr :post, :create, format: :json, bug: valid_attributes
+          }.to change(@current_user.bugs, :count).by(1)
+       end
     end
+   end
 end

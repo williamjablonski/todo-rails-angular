@@ -11,4 +11,5 @@ class User < ActiveRecord::Base
 
   has_many :tasks, dependent: :destroy
   has_many :sub_tasks, through: :tasks
+  has_many :bugs
 end
