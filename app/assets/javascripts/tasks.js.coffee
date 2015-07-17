@@ -101,13 +101,25 @@ app.controller('TaskCtrl',["$scope", "$filter", "Task", "$modal" ,  ($scope, $fi
 app.controller('BugController',["$scope", "$filter", "Bug", "$modal" ,  ($scope, $filter, Bug, $modal) ->
   $scope.bugs = Bug.query()
   orderBy = $filter('orderBy')
+  $scope.is_open = false
 
   $scope.newBug = ->
     $scope.bug = { priority: "HIGH" }
+    $scope.is_open = true
 
   $scope.addBug = (bugForm) ->
     if bugForm.$valid
       bug = Bug.save($scope.bug)
       $scope.bugs.push(bug)
       $scope.bug = {}
+
+  $scope.edit = (bug) ->
+    $scope.editMode = true
+    $scope.bug = bug
+    $scope.is_open = true
+
+  $scope.cancelEdit = ->
+    $scope.editMode = false
+    $scope.bug = {}
+    $scope.is_open = false
 ])

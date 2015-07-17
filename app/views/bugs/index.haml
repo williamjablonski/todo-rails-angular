@@ -2,16 +2,18 @@
   Bugs I have found so far
 .task_container{'ng-controller' => 'BugController'}
   %accordion{"close-others" => "false"}
-    %accordion-group
+    %accordion-group{"is-open" => "is_open"}
       %accordion-heading
-        .pane#show_form{"ng-click" => "newBug()"}
+        .pane#show_form{"ng-click" => "newBug()", "ng-show" => "!editMode"}
           Create a new Bug 
           %i.pull-right.glyphicon.glyphicon-plus
+        .pane#show_form{"ng-show" => "editMode"}
+          You are now editing bug: \#{{bug.id}} 
       .panel.panel-default
         .panel-body
           %form{:name => "bugForm", "ng-submit" => "addBug(bugForm)" }
             .form-group
-              %label{:for => "summary"} Summary {{bug.summary}}:
+              %label{:for => "summary"} Summary:
               %input#bug-summary.form-control{:name => "summary", "ng-model" => "bug.summary", :placeholder => "Enter your bug summary here", :type => "text", "maxlength" => "254", required: ""}
             .form-group  
               %p.input-group
@@ -27,20 +29,31 @@
                     Medium
                   %option{value: 'LOW'}
                     Low
-            .form-group
+            .form-group{"ng-show" => "!editMode"}
               %button.btn.btn-primary#add-bug{href: "#", type: "submit"} 
                 %span.glyphicon.glyphicon-plus
                 Add
+            .form-group{"ng-show" => "editMode"}
+              %button.btn.btn-primary#save-bug{href: "#", "ng-click" => "saveBug(bug)"} 
+                %span.glyphicon.glyphicon-save
+                Save
+              %button.btn.btn-danger#cancel-bug{href: "#","ng-click" => "cancelEdit()"} 
+                %span.glyphicon.glyphicon-ban-circle
+                Cancel                
     %accordion-group{ heading: "List of Bugs", "is-open" => "true"}
       / Table
       %table.table
         %thead
           %tr
-            %th Id
-            %th Summary
+            %th.col-md-1 Id
+            %th.col-md-10 Summary
+            %th.col-md-1 Actions
         %tbody
           %tr.bug-row{'ng-repeat' => 'bug in bugs', 'ng-class' => "{'success': task.completed}"}
             %td.col-md-1
               %a {{bug.id}}
-            %td.task_body.col-md-7
+            %td.task_body.col-md-10
               %a {{bug.summary}}
+            %td.task_body.col-md-1
+              %i.glyphicon.glyphicon-pencil{"ng-click" => "edit(bug)"} 
+              %i.glyphicon.glyphicon-remove{"ng-click" => "delete(bug)"}
