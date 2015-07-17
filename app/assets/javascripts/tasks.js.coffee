@@ -101,4 +101,12 @@ app.controller('TaskCtrl',["$scope", "$filter", "Task", "$modal" ,  ($scope, $fi
 app.controller('BugController',["$scope", "$filter", "Bug", "$modal" ,  ($scope, $filter, Bug, $modal) ->
   $scope.bugs = Bug.query()
   orderBy = $filter('orderBy')
+
+  $scope.newBug = ->
+    $scope.bug = { priority: "HIGH" }
+
+  $scope.addBug = ->
+    bug = Bug.save($scope.bug)
+    $scope.bugs.push(bug)
+    $scope.bug = {}
 ])

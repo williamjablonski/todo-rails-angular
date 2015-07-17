@@ -1,10 +1,37 @@
 %h1
   Bugs I have found so far
 .task_container{'ng-controller' => 'BugController'}
-  .bs-example
-    .panel.panel-default
-      / Default panel contents
-      .panel-heading Bugs
+  %accordion{"close-others" => "false"}
+    %accordion-group
+      %accordion-heading
+        .pane#show_form{"ng-click" => "newBug()"}
+          Create a new Bug 
+          %i.pull-right.glyphicon.glyphicon-plus
+      .panel.panel-default
+        .panel-body
+          %form{:name => "bug_form"}
+            .form-group
+              %label{:for => "summary"} Summary {{bug.summary}}:
+              %input#bug-summary.form-control{:name => "summary", "ng-model" => "bug.summary", :placeholder => "Enter your bug summary here", :type => "text", "maxlength" => "254"}
+            .form-group  
+              %p.input-group
+                %label{:for => "description"} Description:
+                %textarea#bug-description.form-control{name: "description", "ng-model" => "bug.description", type: "text", placeholder: "What`s wrong?"}
+            .form-group  
+              %p.input-group
+                %label{:for => "priority"} Priority:
+                %select#bug-priority.form-control{name: "priority", "ng-model" => "bug.priority", type: "text"}
+                  %option{value: 'HIGH', selected: ''}
+                    High
+                  %option{value: 'MEDIUM'}
+                    Medium
+                  %option{value: 'LOW'}
+                    Low
+            .form-group
+              %button.btn.btn-primary#add-bug{href: "#", "ng-click" => "addBug()"} 
+                %span.glyphicon.glyphicon-plus
+                Add
+    %accordion-group{ heading: "List of Bugs", "is-open" => "true"}
       / Table
       %table.table
         %thead
@@ -13,7 +40,6 @@
             %th Summary
         %tbody
           %tr.bug-row{'ng-repeat' => 'bug in bugs', 'ng-class' => "{'success': task.completed}"}
-
             %td.col-md-1
               %a {{bug.id}}
             %td.task_body.col-md-7

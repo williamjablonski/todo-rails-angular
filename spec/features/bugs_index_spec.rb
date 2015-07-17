@@ -27,4 +27,20 @@ RSpec.describe "Bugs Index", :type => :feature, :js => true do
     end
   end
 
+  context "Create Bugs" do
+    it "should create a bug when all the information is filled" do
+      visit "/bugs"
+      find("#show_form").click
+      fill_in "summary", with: "Test summary"
+      fill_in "description", with: "Test bug-description"
+      select "Medium", from: "priority"
+      click_button "Add"
+      expect(page.all(".bug-row").size).to eq 1
+      create_bug = Bug.all.first
+      expect(create_bug.summary).to eq "Test summary"
+      expect(create_bug.description).to eq "Test bug-description"
+      expect(create_bug.priority).to eq "MEDIUM"
+    end
+  end
+
 end
