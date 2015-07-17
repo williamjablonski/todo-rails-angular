@@ -102,10 +102,10 @@ app.controller('BugController',["$scope", "$filter", "Bug", "$modal" ,  ($scope,
   $scope.bugs = Bug.query()
   orderBy = $filter('orderBy')
   $scope.is_open = false
+  $scope.editMode = false
 
   $scope.newBug = ->
     $scope.bug = { priority: "HIGH" }
-    $scope.is_open = true
 
   $scope.addBug = (bugForm) ->
     if bugForm.$valid
