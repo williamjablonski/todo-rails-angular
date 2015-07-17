@@ -105,8 +105,9 @@ app.controller('BugController',["$scope", "$filter", "Bug", "$modal" ,  ($scope,
   $scope.newBug = ->
     $scope.bug = { priority: "HIGH" }
 
-  $scope.addBug = ->
-    bug = Bug.save($scope.bug)
-    $scope.bugs.push(bug)
-    $scope.bug = {}
+  $scope.addBug = (bugForm) ->
+    if bugForm.$valid
+      bug = Bug.save($scope.bug)
+      $scope.bugs.push(bug)
+      $scope.bug = {}
 ])

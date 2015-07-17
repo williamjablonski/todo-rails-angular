@@ -41,6 +41,13 @@ RSpec.describe "Bugs Index", :type => :feature, :js => true do
       expect(create_bug.description).to eq "Test bug-description"
       expect(create_bug.priority).to eq "MEDIUM"
     end
+
+     it "should not create a bug when not all the information is filled" do
+      visit "/bugs"
+      find("#show_form").click
+      click_button "Add"
+      expect(page.all(".bug-row").size).to eq 0
+    end
   end
 
 end

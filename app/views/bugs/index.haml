@@ -9,26 +9,26 @@
           %i.pull-right.glyphicon.glyphicon-plus
       .panel.panel-default
         .panel-body
-          %form{:name => "bug_form"}
+          %form{:name => "bugForm", "ng-submit" => "addBug(bugForm)" }
             .form-group
               %label{:for => "summary"} Summary {{bug.summary}}:
-              %input#bug-summary.form-control{:name => "summary", "ng-model" => "bug.summary", :placeholder => "Enter your bug summary here", :type => "text", "maxlength" => "254"}
+              %input#bug-summary.form-control{:name => "summary", "ng-model" => "bug.summary", :placeholder => "Enter your bug summary here", :type => "text", "maxlength" => "254", required: ""}
             .form-group  
               %p.input-group
                 %label{:for => "description"} Description:
-                %textarea#bug-description.form-control{name: "description", "ng-model" => "bug.description", type: "text", placeholder: "What`s wrong?"}
+                %textarea#bug-description.form-control{name: "description", "ng-model" => "bug.description", type: "text", placeholder: "What`s wrong?", required: ""}
             .form-group  
               %p.input-group
                 %label{:for => "priority"} Priority:
                 %select#bug-priority.form-control{name: "priority", "ng-model" => "bug.priority", type: "text"}
-                  %option{value: 'HIGH', selected: ''}
+                  %option{value: 'HIGH', selected: '', required: ""}
                     High
                   %option{value: 'MEDIUM'}
                     Medium
                   %option{value: 'LOW'}
                     Low
             .form-group
-              %button.btn.btn-primary#add-bug{href: "#", "ng-click" => "addBug()"} 
+              %button.btn.btn-primary#add-bug{href: "#", type: "submit"} 
                 %span.glyphicon.glyphicon-plus
                 Add
     %accordion-group{ heading: "List of Bugs", "is-open" => "true"}
