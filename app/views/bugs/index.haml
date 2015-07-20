@@ -46,14 +46,17 @@
         %thead
           %tr
             %th.col-md-1 Id
-            %th.col-md-10 Summary
+            %th.col-md-9 Summary
+            %th.col-md-1 Priority
             %th.col-md-1 Actions
         %tbody
           %tr.bug-row{'ng-repeat' => 'bug in bugs', 'ng-class' => "{'success': task.completed}"}
             %td.col-md-1
               %a {{bug.id}}
-            %td.task_body.col-md-10
+            %td.task_body.col-md-9
               %a {{bug.summary | limitTo:maxChars }}
+            %td.task_body.col-md-1
+              %span{ "class" => "label-for-priority-{{bug.id}} label label-{{bug.priority == 'HIGH' ? 'danger' : (bug.priority == 'MEDIUM' ? 'warning' : 'info') }}" }{{bug.priority | lowercase }}
             %td.task_body.col-md-1
               %i.glyphicon.glyphicon-pencil{"ng-click" => "edit(bug)", class: "edit-for-{{bug.id}}"} 
               %i.glyphicon.glyphicon-remove{"ng-click" => "delete(bug)"}

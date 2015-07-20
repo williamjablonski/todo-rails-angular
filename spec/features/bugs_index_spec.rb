@@ -76,6 +76,26 @@ RSpec.describe "Bugs Index", :type => :feature, :js => true do
       expect(@bug_to_edit.reload.summary).to_not eq "New Summary"
       expect(page.all("#bug-summary")).to be_empty
     end
+
+    context "should change the priority label accordingly" do
+      before(:each) do 
+        visit "/bugs"
+        find(".edit-for-#{@bug_to_edit.id}").click
+        expect(find("#bug-summary")).to be_visible
+      end
+      it "should show danger class for high priority" do
+        select "High", from: "priority"
+        expect(find(".label-for-priority-#{@bug_to_edit.id}")[:class]).to include("label-danger")
+      end
+      it "should show danger class for high priority" do
+        select "Medium", from: "priority"
+        expect(find(".label-for-priority-#{@bug_to_edit.id}")[:class]).to include("label-warning")
+      end
+      it "should show danger class for high priority" do
+        select "Low", from: "priority"
+        expect(find(".label-for-priority-#{@bug_to_edit.id}")[:class]).to include("label-info")
+      end
+    end
   end
 
 end
