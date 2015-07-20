@@ -131,4 +131,6 @@ app.controller('BugController',["$scope", "$filter", "Bug", "$modal" ,  ($scope,
   $scope.delete = (bug) ->    
     bug.$delete()
     $scope.bugs.splice( $scope.bugs.indexOf(bug), 1 )
+    $scope.bug = {}
+    $scope.editMode = false
 ])
