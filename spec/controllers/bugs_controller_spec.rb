@@ -31,7 +31,7 @@ RSpec.describe BugsController, :type => :controller do
 
     describe "#create" do 
        let(:valid_attributes){ FactoryGirl.build(:bug).attributes }
-       it "should create a new task for the current user" do 
+       it "should create a new bug for the current user" do 
         expect {
           xhr :post, :create, format: :json, bug: valid_attributes
           }.to change(@current_user.bugs, :count).by(1)
@@ -43,10 +43,26 @@ RSpec.describe BugsController, :type => :controller do
         @bug = FactoryGirl.create(:bug, user: @current_user)
       end
       let(:valid_attributes){ FactoryGirl.build(:bug, description: "my_bug_updated", id: @bug.id).attributes }
-       it "should create a new task for the current user" do 
+       it "should edit a new bug for the current user" do 
           xhr :put, :update, format: :json, id: @bug.id, bug: valid_attributes
           expect(@bug.reload.description).to eq("my_bug_updated")
        end
+    end
+
+    describe "#destroy" do 
+      it "should destroy the bug" do 
+        bug = FactoryGirl.create(:bug, user_id: @current_user.id)
+        expect {
+          xhr :delete, :destroy, format: :json, id: bug.id
+          }.to change(@current_user.bugs, :count).by(-1)
+      end
+
+      it "should not destroy other user's bug" do
+        bug = FactoryGirl.create(:bug)
+        expect {
+          xhr :delete, :destroy, format: :json, id: bug.id
+          }.to raise_error(ActiveRecord::RecordNotFound)
+      end
     end
    end
 end

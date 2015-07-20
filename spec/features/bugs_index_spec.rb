@@ -98,4 +98,16 @@ RSpec.describe "Bugs Index", :type => :feature, :js => true do
     end
   end
 
+   context "Delete Bugs" do
+    before(:each) do
+      @bug = FactoryGirl.create(:bug, user: @user)
+    end
+    
+    it "should delete a bugs" do
+      visit "/bugs"
+      find(".delete-bug-#{@bug.id}").click
+      expect(page.all(".bug-row").size).to eq 0
+    end
+  end
+
 end

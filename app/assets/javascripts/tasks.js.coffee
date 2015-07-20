@@ -81,7 +81,6 @@ app.controller('TaskCtrl',["$scope", "$filter", "Task", "$modal" ,  ($scope, $fi
   $scope.saveTask = (task) ->
     task.$update()
     
-    
 
   $scope.editModal = (task) ->
     modalInstance = $modal.open(
@@ -128,4 +127,8 @@ app.controller('BugController',["$scope", "$filter", "Bug", "$modal" ,  ($scope,
     bug.$update()
     $scope.is_open = false
     $scope.editMode = false
+
+  $scope.delete = (bug) ->    
+    bug.$delete()
+    $scope.bugs.splice( $scope.bugs.indexOf(bug), 1 )
 ])

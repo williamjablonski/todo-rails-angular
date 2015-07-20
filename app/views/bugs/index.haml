@@ -59,4 +59,4 @@
               %span{ "class" => "label-for-priority-{{bug.id}} label label-{{bug.priority == 'HIGH' ? 'danger' : (bug.priority == 'MEDIUM' ? 'warning' : 'info') }}" }{{bug.priority | lowercase }}
             %td.task_body.col-md-1
               %i.glyphicon.glyphicon-pencil{"ng-click" => "edit(bug)", class: "edit-for-{{bug.id}}"} 
-              %i.glyphicon.glyphicon-remove{"ng-click" => "delete(bug)"}
+              %i.glyphicon.glyphicon-remove{"ng-click" => "delete(bug)", class: "delete-bug-{{bug.id}}"}
