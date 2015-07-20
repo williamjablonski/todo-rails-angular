@@ -34,10 +34,10 @@
                 %span.glyphicon.glyphicon-plus
                 Add
             .form-group{"ng-show" => "editMode"}
-              %button.btn.btn-primary#save-bug{href: "#", "ng-click" => "saveBug(bug)"} 
+              %button.btn.btn-primary#save-bug{href: "#", "ng-click" => "updateBug(bug)", type: "button"} 
                 %span.glyphicon.glyphicon-save
                 Save
-              %button.btn.btn-danger#cancel-bug{href: "#","ng-click" => "cancelEdit()"} 
+              %button.btn.btn-danger#cancel-bug{href: "#", "ng-click" => "cancelEdit()", type: "button"} 
                 %span.glyphicon.glyphicon-ban-circle
                 Cancel                
     %accordion-group{ heading: "List of Bugs", "is-open" => "true"}
@@ -53,7 +53,7 @@
             %td.col-md-1
               %a {{bug.id}}
             %td.task_body.col-md-10
-              %a {{bug.summary}}
+              %a {{bug.summary | limitTo:maxChars }}
             %td.task_body.col-md-1
-              %i.glyphicon.glyphicon-pencil{"ng-click" => "edit(bug)"} 
+              %i.glyphicon.glyphicon-pencil{"ng-click" => "edit(bug)", class: "edit-for-{{bug.id}}"} 
               %i.glyphicon.glyphicon-remove{"ng-click" => "delete(bug)"}

@@ -14,6 +14,12 @@ class BugsController < ApplicationController
 	 def create
 	 	respond_with current_user.bugs.create(bug_params)
 	 end
+     
+     def update
+     	@bug = current_user.bugs.find(params[:id])
+     	@bug.update(bug_params)
+        respond_with @bug, location: ''
+     end
 
 	 private
 	 def bug_params

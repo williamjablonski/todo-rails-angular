@@ -50,4 +50,32 @@ RSpec.describe "Bugs Index", :type => :feature, :js => true do
     end
   end
 
+  context "Edit Bugs" do
+    before(:each) do
+     @bug_to_edit = FactoryGirl.create(:bug, user: @user)
+    end
+
+    it "should edit bugs" do
+      visit "/bugs"
+      find(".edit-for-#{@bug_to_edit.id}").click
+      expect(find("#bug-summary")).to be_visible
+      fill_in "summary", with: "New Summary"
+      click_button "Save"
+      expect(page.all(".bug-row").size).to eq 1
+      expect(@bug_to_edit.reload.summary).to eq "New Summary"
+      expect(page.all("#bug-summary")).to be_empty
+    end
+
+    it "should cancel bug editing" do
+      visit "/bugs"
+      find(".edit-for-#{@bug_to_edit.id}").click
+      expect(find("#bug-summary")).to be_visible
+      fill_in "summary", with: "New Summary"
+      click_button "Cancel"
+      expect(page.all(".bug-row").size).to eq 1
+      expect(@bug_to_edit.reload.summary).to_not eq "New Summary"
+      expect(page.all("#bug-summary")).to be_empty
+    end
+  end
+
 end

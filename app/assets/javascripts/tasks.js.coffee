@@ -15,7 +15,7 @@ app.factory "SubTask", ["$resource" , ($resource) ->
 ]
 
 app.factory "Bug", ["$resource", ($resource) ->
-  $resource("/bugs/:id.json", {id: @id}, {update: {method: "PUT"}, query: {method: 'GET', isArray: true}})
+  $resource("/bugs/:id.json", {id: "@id"}, {update: {method: "PUT"}, query:  {method: 'GET', isArray: true}})
 
 ]
 
@@ -103,12 +103,13 @@ app.controller('BugController',["$scope", "$filter", "Bug", "$modal" ,  ($scope,
   orderBy = $filter('orderBy')
   $scope.is_open = false
   $scope.editMode = false
+  $scope.maxChars = 80
 
   $scope.newBug = ->
     $scope.bug = { priority: "HIGH" }
 
   $scope.addBug = (bugForm) ->
-    if bugForm.$valid
+    if bugForm.$valid && !$scope.editMode
       bug = Bug.save($scope.bug)
       $scope.bugs.push(bug)
       $scope.bug = {}
@@ -122,4 +123,9 @@ app.controller('BugController',["$scope", "$filter", "Bug", "$modal" ,  ($scope,
     $scope.editMode = false
     $scope.bug = {}
     $scope.is_open = false
+
+  $scope.updateBug = (bug) ->
+    bug.$update()
+    $scope.is_open = false
+    $scope.editMode = false
 ])

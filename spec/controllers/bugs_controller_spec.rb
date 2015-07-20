@@ -37,5 +37,16 @@ RSpec.describe BugsController, :type => :controller do
           }.to change(@current_user.bugs, :count).by(1)
        end
     end
+
+    describe "#update" do
+      before(:each) do
+        @bug = FactoryGirl.create(:bug, user: @current_user)
+      end
+      let(:valid_attributes){ FactoryGirl.build(:bug, description: "my_bug_updated", id: @bug.id).attributes }
+       it "should create a new task for the current user" do 
+          xhr :put, :update, format: :json, id: @bug.id, bug: valid_attributes
+          expect(@bug.reload.description).to eq("my_bug_updated")
+       end
+    end
    end
 end

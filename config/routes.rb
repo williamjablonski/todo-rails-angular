@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     resources :sub_tasks 
   end
 
-  resources :bugs, only: [:index, :create, :show]
+  resources :bugs
 
   resources :users, only: [:index, :show]
   # The priority is based upon order of creation: first created -> highest priority.
