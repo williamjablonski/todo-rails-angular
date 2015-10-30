@@ -15,12 +15,12 @@
 # gem 'pg'
 #
 default: &default
-  adapter: mysql
+  adapter: postgres
   encoding: unicode
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
-  username: mysql
+  username: interview
   password: ac4success
 
 development:
