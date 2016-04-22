@@ -28,4 +28,6 @@ Any help is encouraged. Here are some ways you can contribute:
 * by reporting bugs or suggesting new features on github issue tracker
 * by fixing bugs or implementing features
 
+## Tests ##
+
 Tested on BrowserStack   (https://www.browserstack.com/start)
